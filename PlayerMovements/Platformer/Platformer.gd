@@ -1,5 +1,9 @@
 extends KinematicBody2D
 
+# ABOUT THIS SCENE
+# This file is expecting the following inputs to be set up
+# move_left, move_right, jump
+
 const FLOOR_NORMAL = Vector2.UP
 
 export var speed := 300.0
@@ -8,6 +12,7 @@ export var gravity := 3000.0
 
 var velocity := Vector2.ZERO
 
+# Runs physics calc on every frame
 func _physics_process(delta: float) -> void:
 	var is_jump_interrupted := Input.is_action_just_released("jump") and velocity.y < 0.0
 	var direction := get_direction()
@@ -15,12 +20,14 @@ func _physics_process(delta: float) -> void:
 	velocity = calculate_move_velocity(velocity, direction, speed, jump_force, is_jump_interrupted)
 	velocity = move_and_slide(velocity, FLOOR_NORMAL)
 
+# Get movement direction
 func get_direction() -> Vector2:
 	return Vector2(
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 		-1.0 if Input.is_action_just_pressed("jump") and is_on_floor() else 1.0
 	)
 
+# Calculates the move velocity
 func calculate_move_velocity(
 	linear_velocity: Vector2,
 	direction: Vector2,
