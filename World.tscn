@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/GrassBackground.png" type="Texture" id=1]
+[ext_resource path="res://PlayerMovements/TopDown/TopDown.tscn" type="PackedScene" id=2]
+
+[node name="World" type="Node2D"]
+
+[node name="Background" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1056, 624 )
+
+[node name="TopDown" parent="." instance=ExtResource( 2 )]
+position = Vector2( 119, 75 )
